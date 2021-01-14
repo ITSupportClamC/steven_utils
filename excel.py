@@ -9,7 +9,7 @@ from xlrd import open_workbook
 from datetime import datetime, timedelta
 from functools import partial
 from itertools import takewhile
-from utils.iter import headnRemain
+from steven_utils.iter import headnRemain
 
 
 
@@ -44,8 +44,8 @@ def worksheetToLines(ws):
 	rowToList = lambda ws, row: \
 		list(map(partial(cellValue, ws, row), range(ws.ncols)))
 
-	return map(lambda row: partial(rowToList, ws), range(ws.nrows))
-
+	return map(partial(rowToList, ws), range(ws.nrows))
+	
 
 
 def fileToLines(file):
@@ -65,7 +65,7 @@ def getRawPositionsFromLines(lines):
 	"""
 	stripIfString = lambda x: x.strip() if isinstance(x, str) else x
 
-	# [List] line => [List] headers
+	# [Iterable] line => [List] headers
 	getHeaders = compose(
 		list
 	  , partial(takewhile, lambda x: x != '')
@@ -87,10 +87,10 @@ def getRawPositionsFromLines(lines):
 
 	return \
 	compose(
-		lambda t: map( partial(toPosition, t[0])
-					 , takewhile( lambda line: not emptyLine(line)
-					 			, t[1])
-					 )
+		lambda t: map(partial(toPosition, t[0]), t[1])
+	  , lambda t: ( getHeaders(t[0])
+				  , takewhile(lambda line: not emptyLine(line), t[1])
+				  )
 	  , headnRemain
 	)(lines)
 
@@ -103,6 +103,6 @@ def getRawPositionsFromLines(lines):
 	convert the lines from that worksheet to positions.
 """
 getRawPositionsFromFile = compose(
-	getRawPositions  
+	getRawPositionsFromLines
   , fileToLines
 )
