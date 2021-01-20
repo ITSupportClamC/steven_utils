@@ -1,8 +1,7 @@
 ﻿# coding=utf-8
 # 
 from os import listdir
-from os.path import isfile, isdir, join
-import ntpath
+from os.path import isfile, isdir, join, split as pathSplit
 
 
 
@@ -32,17 +31,21 @@ def getSubFolders(directory):
 
 
 
-def stripPath(file):
+def getFilenameWithoutPath(file):
 	"""
-	[String] file name (with or without full path) => [String] file name 
-		without path
-
-	The code snippet comes from:
-
-	https://stackoverflow.com/a/8384788/3331297
+	[String] file name (with or without full path) 
+		=> [String] file name without path
 	"""
-	head, tail = ntpath.split(file)
-	return tail
+	return pathSplit(file)[1]
+
+
+
+def getParentFolder(file):
+	"""
+	[String] file name with full path 
+		=> [String] parent folder of the file
+	"""
+	return pathSplit(file)[0]
 
 
 
