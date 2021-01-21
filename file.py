@@ -5,19 +5,21 @@ from os.path import isfile, isdir, join, split as pathSplit
 
 
 
-def getFiles(directory, withDir=None):
+def getFiles(directory, withDir=False):
 	"""
-	[String] directory, [Bool] withDir => [List] file names under that 
-		directory. Sub folders are not included.
+	[String] directory, [Bool] withDir 
+		=> [List] file names under that directory. Sub folders are 
+				not included.
 
 	if the function is called without the second parameter 'withDir', then 
 	file names are without directory, otherwise full path file names are 
 	returned.
 	"""
-	if withDir == None:
-		return [f for f in listdir(directory) if isfile(join(directory, f))]
-	else:
-		return [join(directory, f) for f in listdir(directory) if isfile(join(directory, f))]
+	return \
+	[join(directory, f) for f in listdir(directory) if isfile(join(directory, f))] \
+	if withDir else \
+	[f for f in listdir(directory) if isfile(join(directory, f))]
+		
 
 
 
