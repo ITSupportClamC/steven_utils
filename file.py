@@ -1,5 +1,7 @@
 ﻿# coding=utf-8
 # 
+# File system related API
+# 
 from os import listdir
 from os.path import isfile, isdir, join, split as pathSplit
 

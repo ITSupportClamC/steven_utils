@@ -12,7 +12,6 @@ from itertools import takewhile
 from steven_utils.iter import headnRemain
 
 
-
 def fromExcelOrdinal(ordinal, _epoch0=datetime(1899, 12, 31)):
 	"""
 	[Float] ordinal => [datetime] date

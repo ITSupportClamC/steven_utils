@@ -1,6 +1,6 @@
 # coding=utf-8
 # 
-# send email
+# send email, with or without attachments.
 # 
 
 from os.path import join
